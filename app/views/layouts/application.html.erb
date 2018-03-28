@@ -9,6 +9,14 @@
   </head>
 
   <body>
+    <% if session[:user_id] %>
+      <h4>Logged in: <%= User.find(session[:user_id]).name %></h4>
+      <%= link_to "Logout", logout_path, method: :delete %>
+    <% end %>
+    <ul>
+      <li><%= link_to "Home", '#' %></li>
+    </ul>
+
     <%= yield %>
   </body>
 </html>
