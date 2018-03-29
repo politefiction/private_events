@@ -1,11 +1,18 @@
 class UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
   end
 
   def create
     @user = User.new(user_params)
-    render 'show'
+    if @user.save
+      log_in(@user)
+      render 'show'
+    end
   end
 
   def show

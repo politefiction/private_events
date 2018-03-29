@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   #resources :sessions
   # home/root can be set with events controller (index)
   resources :users
+  resources :events
+  root 'events#index'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
