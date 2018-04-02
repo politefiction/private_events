@@ -1,4 +1,20 @@
 <h1><%= @event.name %></h1>
-<h4>When: <%= @event.event_date %></h4>
-<p>Hosted by: <%= @event.creator.name %></p>
-<p><%= @event.description %></p>
+<p><strong>When:</strong> <%= @event.event_date %></p>
+<p><strong>Hosted by:</strong>  <%= link_to @event.creator.name, user_path(@event.creator.id) %></p>
+
+<p><strong>Details:</strong> <%= @event.description %></p>
+
+<strong>Guest list:</strong> 
+<% unless @event.attendees.empty? %>
+    <ul>
+        <% @event.attendees.each do |attendee| %>
+            <li><%= link_to attendee.name, user_path(attendee.id) %></li>
+        <% end %>
+    </ul>
+<% else %>
+    <p>No one yet.</p>
+<% end %>
+
+<% unless @event.attendees.include? current_user %>
+    <%= link_to "Click here to join this event.", event_path(@event.id), method: :put %>
+<% end %>

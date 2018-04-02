@@ -9,6 +9,9 @@
   </head>
 
   <body>
+    <% flash.each do |key, value| %>
+      <%= value %>
+    <% end %>
     <% if logged_in? %>
       <h4>Logged in: <%= current_user.name %></h4>
     <% end %>

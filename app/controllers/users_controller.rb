@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  helper_method :upcoming_events, :previous_events
+
   def index
     @users = User.all
   end
@@ -17,6 +19,14 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def upcoming_events
+    @user.attended_events.where("event_date > ?", Time.now)
+  end
+
+  def previous_events
+    @user.attended_events.where("event_date < ?", Time.now)
   end
 
   private
